@@ -1,0 +1,37 @@
+﻿<Window x:Class="SpecificCopier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpecificCopier"
+        mc:Ignorable="d"
+        MinWidth="410"
+        MinHeight="340"
+        Title="指定ファイル名でコピー" Height="350" Width="580">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.CancelCommand}" Executed="CancelCommand_Executed" CanExecute="CancelCommand_CanExecute"/>
+        <CommandBinding Command="{x:Static local:MainWindow.StartCommand}" Executed="StartCommand_Executed" CanExecute="StartCommand_CanExecute"/> 
+    </Window.CommandBindings>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressValue="{Binding ProgressValue}" ProgressState="Normal"/>
+    </Window.TaskbarItemInfo>
+    <Grid>
+        <GroupBox x:Name="groupBox" Header="コピー元" VerticalAlignment="Top" Margin="10,10,10,0" Height="65" Width="Auto">
+            <Grid Margin="0" Width="Auto" Height="Auto">
+                <TextBox x:Name="input_path" Text="{Binding Input}" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="Auto" Margin="0,8,40,0"/>
+                <Button x:Name="src_ofd" Content="..." HorizontalAlignment="Right" VerticalAlignment="Top" Width="25" Margin="0,8,10,0" Height="23" Click="src_ofd_Click"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="start" Content="スタート" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="113" Height="28" IsEnabled="{Binding Idle}" Command="{x:Static local:MainWindow.StartCommand}" />
+        <GroupBox x:Name="groupBox_Copy" Header="コピー先" VerticalAlignment="Top" Margin="10,87,10,0" Height="65" Width="Auto">
+            <Grid Margin="0" Width="Auto" Height="Auto">
+                <TextBox x:Name="output_path" Text="{Binding Output}" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="Auto" Margin="0,8,40,0"/>
+                <Button x:Name="dst_ofd" Content="..." HorizontalAlignment="Right" VerticalAlignment="Top" Width="25" Margin="0,8,10,0" Height="23" Click="dst_ofd_Click"/>
+            </Grid>
+        </GroupBox>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="ファイル名及び拡張子を指定" VerticalAlignment="Top" Margin="32,170,0,0" FontSize="20"/>
+        <TextBox x:Name="copyname" Text="{Binding CopyName, Mode=OneWayToSource}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="265,174,0,0" FontSize="16"/>
+        <ProgressBar Value="{Binding ProgressValue}" Height="23" VerticalAlignment="Bottom" Margin="10,0,10,72" FontSize="14" Maximum="1" SmallChange="0.001"/>
+        <Button x:Name="cancel" Content="キャンセル" HorizontalAlignment="Right" Margin="0,0,135,10" VerticalAlignment="Bottom" Width="113" Height="28" Command="{x:Static local:MainWindow.CancelCommand}"/>
+    </Grid>
+</Window>
